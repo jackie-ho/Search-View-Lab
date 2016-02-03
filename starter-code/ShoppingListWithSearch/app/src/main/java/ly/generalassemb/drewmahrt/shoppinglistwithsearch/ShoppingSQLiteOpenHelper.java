@@ -103,6 +103,20 @@ public class ShoppingSQLiteOpenHelper extends SQLiteOpenHelper{
 
         return cursor;
     }
+    public Cursor searchFood(String query){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(SHOPPING_LIST_TABLE_NAME, // a. table
+                SHOPPING_COLUMNS, // b. column names
+                COL_ITEM_NAME+" LIKE ? OR "+COL_ITEM_TYPE+" LIKE ? ", // c. selections
+                new String[]{"%" +query + "%", "%"+query+"%"}, // d. selections args
+                null, // e. group by
+                null, // f. having
+                null, // g. order by
+                null); // h. limit
+        return cursor;
+    }
 
     public int deleteItem(int id){
         SQLiteDatabase db = getWritableDatabase();
